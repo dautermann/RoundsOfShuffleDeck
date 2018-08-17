@@ -37,7 +37,7 @@ void printDeck(Deck *deck) {
         
     } while (card != NULL);
     
-    std::cout << "\n";
+    std::cout  << "\n";
 }
 
 bool validateDeck(Deck *deck, int numberOfCards) {
@@ -79,7 +79,6 @@ Deck * shuffleDeck(Deck *originalDeck) {
             std::cout << "\n";
         }
 #endif
-        
         Card *secondCard = firstCard->next;
 
         if (newDeckOnTable->start != NULL)
@@ -106,7 +105,7 @@ Deck * shuffleDeck(Deck *originalDeck) {
         
     // Continue steps 1 and 2 until all cards are on the table.  This is a round.
     } while (firstCard != NULL);
-    
+
     return newDeckOnTable;
 }
 
@@ -124,12 +123,19 @@ int main(int argc, const char * argv[]) {
         scanf("%d", &numOfCards);
     }
     
+    if (numOfCards <= 0)
+    {
+        std::cout << "number of cards needs to be a positive number ( > 0 )\n";
+        return 0;
+    }
+    
     // initialize the deck
     Card *lastCard = NULL;
     for(int index = 1; index <= numOfCards; index++)
     {
         Card *card = (Card *)malloc(sizeof(Card));
         card->index = index;
+        card->next = NULL;
         if(lastCard != NULL)
         {
             lastCard->next = card;
@@ -159,6 +165,6 @@ int main(int argc, const char * argv[]) {
     } while(originalOrder == false);
     
     free(deckToReorder);
-    std::cout << "how many rounds to put deck back into original order = " << shuffleCount << "\n";
+    std::cout << numOfCards << ": " << shuffleCount << "\n";
     return 0;
 }
